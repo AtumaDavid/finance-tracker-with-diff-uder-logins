@@ -12,7 +12,7 @@ const firestoreReducer = (state, action) => {
   switch (action.type) {
     case "IS_PENDING":
       return {
-        ...state,
+        // ...state,
         isPending: true,
         document: null,
         success: false,
@@ -20,7 +20,7 @@ const firestoreReducer = (state, action) => {
       };
     case "ADDED_DOCUMENT":
       return {
-        ...state,
+        // ...state,
         isPending: false,
         document: action.payload,
         success: true,
@@ -28,7 +28,7 @@ const firestoreReducer = (state, action) => {
       };
     case "ERROR":
       return {
-        ...state,
+        // ...state,
         isPending: false,
         document: null,
         success: false,
@@ -59,13 +59,15 @@ export const useFirestore = (collection) => {
     dispatch({ type: "IS_PENDING" });
 
     try {
-      const createdAt = timestamp.fromDare(new Date());
+      const createdAt = timestamp.fromDate(new Date());
       const addedDocument = await ref.add({ ...doc, createdAt: createdAt });
       dispatchIfNotCancelled({
         type: "ADDED_DOCUMENT",
         payload: addedDocument,
       });
     } catch (err) {
+      console.log({ err });
+      //   alert("here");
       dispatchIfNotCancelled({ type: "ERROR", payload: err.message });
     }
   };

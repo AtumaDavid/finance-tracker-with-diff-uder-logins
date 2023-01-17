@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useFirestore } from "../../hooks/useFirestore";
 
@@ -11,7 +11,21 @@ export default function TransactionForm({ uid }) {
     e.preventDefault();
     addDocument({ uid: uid, name, amount });
     // console.log({ name, amount });
+
+    // if (response.success) {
+    //   setName("");
+    //   setAmount("");
+    // }
   };
+
+  //   to clear the form field after inputs has been added successfully
+  useEffect(() => {
+    if (response.success) {
+      setName("");
+      setAmount("");
+    }
+  }, [response.success]);
+
   return (
     <>
       <h3>Add Transaction</h3>
