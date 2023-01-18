@@ -10,7 +10,10 @@ export default function Home() {
   const { user } = useAuthContext();
   const { documents, error } = useCollection(
     "transactions", //connecting to the transactions collection
-    ["uid", "==", user.uid] //a partiicular logged in user don have access to another logged in user contents. parsing in 3 arguments to firestore query function in useCollection
+    ["uid", "==", user.uid], //a partiicular logged in user don have access to another logged in user contents. parsing in 3 arguments to firestore query function in useCollection
+
+    //order by
+    ["createdAt", "desc"] //desc is ordering by descending order
   );
   return (
     <div className={styles.container}>
